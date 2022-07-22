@@ -28,3 +28,5 @@ const foods = [
     image: require('../assets/sushiMakizushi.png'),
   },
 ];
+
+export default foods;
