@@ -24,6 +24,7 @@ export default function BottomNavigator() {
       }}>
       <Tab.Screen
         name="HomeScreen"
+        tabBarLabel="false"
         component={HomeScreen}
         options={{
           tabBarIcon: ({color}) => (
@@ -70,6 +71,8 @@ export default function BottomNavigator() {
         }}></Tab.Screen>
       <Tab.Screen
         name="Cart"
+        tabBarLabel="false"
+        // headerShown="false"
         component={CartScreen}
         options={{
           tabBarIcon: ({color}) => (

@@ -11,6 +11,7 @@ import React, {useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import COLORS from '../../consts/colors';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import {ScrollView, TextInput} from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import categories from '../../consts/categories';
@@ -18,10 +19,9 @@ import foods from '../../consts/foods';
 const {width} = Dimensions.get('screen');
 const cardWidth = width / 2 - 20;
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
 
-  console.log(foods);
   const ListCategories = () => {
     return (
       <ScrollView
@@ -66,8 +66,43 @@ export default function HomeScreen() {
     );
   };
 
-  const Card = () => {
-    return <View style={styles.card}></View>;
+  const Card = ({foods}) => {
+    return (
+      <TouchableOpacity
+        underlayColor={COLORS.white}
+        activeOpacity={0.9}
+        onPress={() => navigation.navigate('DetailsScreen', foods)}>
+        <View style={styles.card}>
+          <View style={{alignItems: 'center', top: -40}}>
+            <Image source={foods.image} style={{height: 120, width: 120}} />
+          </View>
+          <View style={{marginHorizontal: 20}}>
+            <Text style={{fontSize: 18, fontWeight: 'bold', marginTop: 10}}>
+              {' '}
+              {foods.name}{' '}
+            </Text>
+            <Text style={{fontSize: 14, color: COLORS.grey, marginTop: 2}}>
+              {' '}
+              {foods.ingredients}{' '}
+            </Text>
+          </View>
+          <View
+            style={{
+              marginTop: 10,
+              marginHorizontal: 20,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+              ${foods.price}{' '}
+            </Text>
+            <View style={styles.addToCartBtn}>
+              <Ionicons name="add" size={30} color={COLORS.white} />
+            </View>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
   };
 
   return (
@@ -177,5 +212,13 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     elevation: 13,
     backgroundColor: COLORS.light,
+  },
+  addToCartBtn: {
+    height: 30,
+    width: 30,
+    borderRadius: 20,
+    backgroundColor: COLORS.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
